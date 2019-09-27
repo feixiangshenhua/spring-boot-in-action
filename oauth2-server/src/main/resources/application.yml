@@ -46,8 +46,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:oracle:thin:@10.100.1.20:1521:dicp
-    username: OAUTH2
-    password: OAUTH2
+    username: metabase
+    password: metabase
     driverClassName: oracle.jdbc.driver.OracleDriver
     hikari:
       maximum-pool-size: 50

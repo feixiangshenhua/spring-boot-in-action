@@ -3,13 +3,13 @@ package com.nari.guangzhou.oauth2.config;
 import com.nari.guangzhou.oauth2.security.core.PlatformUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -57,11 +57,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
+    @Qualifier("dataSource")
     private DataSource dataSource;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetailsService());
+        clients.withClientDetails(jdbcClientDetailsService());
     }
 
     @Override
@@ -90,8 +91,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()");
-        security.checkTokenAccess("isAuthenticated()");
+        security
+                // 开启/oauth/token_key验证端口无权限访问
+                .tokenKeyAccess("permitAll()")
+                // 开启/oauth/check_token验证端口认证权限访问
+                .checkTokenAccess("isAuthenticated()");
     }
 
     @Bean
@@ -100,7 +104,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Bean
-    public ClientDetailsService clientDetailsService() {
+    public ClientDetailsService jdbcClientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
 
