@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 import static com.nari.guangzhou.oauth2.constant.OAuth2Constant.TOKEN_TYPE_ACCESS;
 import static com.nari.guangzhou.oauth2.constant.OAuth2Constant.TOKEN_TYPE_REFRESH;
 
@@ -41,6 +43,9 @@ public class TokenManagementApi {
                             @RequestParam("token") String token) {
         if (StringUtils.equalsIgnoreCase(tokenType, TOKEN_TYPE_ACCESS)) {
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
+            if (Objects.isNull(accessToken)) {
+                return;
+            }
             ((RedisTokenStore) tokenStore).removeRefreshToken(accessToken.getRefreshToken().getValue());
             tokenServices.revokeToken(token);
         } else if (StringUtils.equalsIgnoreCase(tokenType, TOKEN_TYPE_REFRESH)) {

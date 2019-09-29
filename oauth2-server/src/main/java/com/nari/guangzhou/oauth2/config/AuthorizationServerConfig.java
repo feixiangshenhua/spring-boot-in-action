@@ -57,8 +57,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
-    @Qualifier("dataSource")
-    private DataSource dataSource;
+    @Qualifier("metabaseDataSource")
+    private DataSource metabaseDataSource;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -105,7 +105,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public ClientDetailsService jdbcClientDetailsService() {
-        return new JdbcClientDetailsService(dataSource);
+        return new JdbcClientDetailsService(metabaseDataSource);
     }
 
     /**

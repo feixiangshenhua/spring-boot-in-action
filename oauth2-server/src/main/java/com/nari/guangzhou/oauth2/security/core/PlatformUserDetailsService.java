@@ -1,5 +1,8 @@
 package com.nari.guangzhou.oauth2.security.core;
 
+import com.nariit.pi6000.ua.bizc.IUserBizc;
+import com.nariit.pi6000.ua.po.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,12 +17,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlatformUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private IUserBizc userBizc;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO 获取PI6000的用户
+        User user = userBizc.getUserByFullName(username);
         PlatformUserDetails platformUserDetails = new PlatformUserDetails();
-        platformUserDetails.setUsername(username);
-        platformUserDetails.setPassword("123456");
+        platformUserDetails.setUsername(user.getFullName());
         return platformUserDetails;
     }
 }

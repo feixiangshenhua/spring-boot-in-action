@@ -1,7 +1,11 @@
 package com.nari.guangzhou.oauth2.security;
 
 import com.nari.guangzhou.oauth2.security.core.PlatformUserDetails;
-import com.nari.guangzhou.oauth2.security.core.PlatformUserDetailsService;
+import com.nariit.pi6000.ua.bizc.IUserBizc;
+import com.nariit.pi6000.ua.exception.IncorrectCredentialsException;
+import com.nariit.pi6000.ua.exception.LockedAccountException;
+import com.nariit.pi6000.ua.exception.UnknownAccountException;
+import com.nariit.pi6000.ua.po.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,9 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -26,7 +31,7 @@ import java.util.Objects;
 public class PlatformAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private PlatformUserDetailsService userDetailService;
+    private IUserBizc userBizc;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -35,15 +40,28 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
         // 获取登录用户密码
         String password = (String) authentication.getCredentials();
 
-        log.info(userName);
-
-        // 这里调用我们的自己写的获取用户的方法
-        PlatformUserDetails userInfo = (PlatformUserDetails) userDetailService.loadUserByUsername(userName);
-
-        // TODO 校验用户名密码是否匹配
-        if (Objects.isNull(userInfo)) {
-            throw new BadCredentialsException("用户名不存在");
+        // 调用hessian接口校验用户名和密码
+        User user;
+        try {
+            user = userBizc.validateUserIPByFullName(userName, password, InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownAccountException e) {
+            throw new BadCredentialsException("未知的用户帐号");
+        } catch (IncorrectCredentialsException e) {
+            throw new BadCredentialsException("用户名密码不匹配");
+        } catch (LockedAccountException e) {
+            throw new BadCredentialsException("失败次数过多，账户已被锁定");
+        } catch (UnknownHostException e) {
+            log.error("调用Hessian接口校验用户名和密码错误", e);
+            throw new BadCredentialsException("校验用户名和密码时出错");
         }
+
+        if (Objects.isNull(user)) {
+            throw new BadCredentialsException("用户名不存在或用户名密码不匹配");
+        }
+
+        PlatformUserDetails userInfo = new PlatformUserDetails();
+        userInfo.setUsername(userName);
+        userInfo.setPassword(password);
 
         Collection<? extends GrantedAuthority> authorities = userInfo.getAuthorities();
         // 构建返回的用户登录成功的token

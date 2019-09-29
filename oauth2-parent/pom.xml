@@ -30,6 +30,7 @@
         <commons-lang.version>2.6</commons-lang.version>
         <springfox.version>2.9.2</springfox.version>
         <guava.version>26.0-jre</guava.version>
+        <pi6000-ua-base.version>1.2.0-SNAPSHOT</pi6000-ua-base.version>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +81,13 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!-- pi6000依赖 -->
+            <dependency>
+                <groupId>com.nariit.pi6000</groupId>
+                <artifactId>pi6000-ua-base</artifactId>
+                <version>${pi6000-ua-base.version}</version>
             </dependency>
 
             <!-- swagger start -->
