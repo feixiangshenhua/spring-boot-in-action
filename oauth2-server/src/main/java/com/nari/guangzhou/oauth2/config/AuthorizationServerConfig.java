@@ -62,6 +62,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        /*
+         * authorized_grant_types的可选值
+         * refresh_token - RefreshTokenGranter
+         * authorization_code - AuthorizationCodeTokenGranter
+         * implicit - ImplicitTokenGranter
+         * password - ResourceOwnerPasswordTokenGranter
+         * client_credentials - ClientCredentialsTokenGranter
+         */
         clients.withClientDetails(jdbcClientDetailsService());
     }
 

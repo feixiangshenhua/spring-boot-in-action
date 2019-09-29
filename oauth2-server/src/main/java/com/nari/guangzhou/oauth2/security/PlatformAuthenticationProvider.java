@@ -1,11 +1,9 @@
 package com.nari.guangzhou.oauth2.security;
 
-import com.nari.guangzhou.oauth2.security.core.PlatformUserDetails;
 import com.nariit.pi6000.ua.bizc.IUserBizc;
 import com.nariit.pi6000.ua.exception.IncorrectCredentialsException;
 import com.nariit.pi6000.ua.exception.LockedAccountException;
 import com.nariit.pi6000.ua.exception.UnknownAccountException;
-import com.nariit.pi6000.ua.po.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
@@ -41,7 +41,7 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
 
         // 调用hessian接口校验用户名和密码
-        User user;
+        com.nariit.pi6000.ua.po.User user;
         try {
             user = userBizc.validateUserIPByFullName(userName, password, InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownAccountException e) {
@@ -59,9 +59,11 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("用户名不存在或用户名密码不匹配");
         }
 
-        PlatformUserDetails userInfo = new PlatformUserDetails();
-        userInfo.setUsername(userName);
-        userInfo.setPassword(password);
+        UserDetails userInfo = User.builder().username(userName).password(password)
+                .accountExpired(false).accountLocked(false).disabled(false).credentialsExpired(false)
+                .authorities("TABLE_1", "TABLE_2")
+//                .roles("USER", "VISITOR")
+                .build();
 
         Collection<? extends GrantedAuthority> authorities = userInfo.getAuthorities();
         // 构建返回的用户登录成功的token

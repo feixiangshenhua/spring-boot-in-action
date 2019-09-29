@@ -18,8 +18,8 @@ public class JwtTokenEnhancer implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        Map<String, Object> info = new HashMap<>(10);
-        info.put("blog", "https://longfeizheng.github.io/");
+        Map<String, Object> info = new HashMap<>(4);
+        /* TODO 可以添加自定义信息到token， 如：info.put("blog", "https://longfeizheng.github.io/"); */
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
         return accessToken;
     }
