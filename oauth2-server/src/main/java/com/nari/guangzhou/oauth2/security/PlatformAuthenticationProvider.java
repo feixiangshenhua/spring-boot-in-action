@@ -1,5 +1,8 @@
 package com.nari.guangzhou.oauth2.security;
 
+import com.nari.guangzhou.oauth2.model.UserAuthority;
+import com.nari.guangzhou.oauth2.security.oauth2.ThreadContextHolder;
+import com.nari.guangzhou.oauth2.security.oauth2.UserAuthorityService;
 import com.nariit.pi6000.ua.bizc.IUserBizc;
 import com.nariit.pi6000.ua.exception.IncorrectCredentialsException;
 import com.nariit.pi6000.ua.exception.LockedAccountException;
@@ -14,12 +17,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+
+import static com.nari.guangzhou.oauth2.security.oauth2.ThreadContextHolder.USER_AUTHORITY_PREFIX;
 
 /**
  * 自定义spring security认证处理类
@@ -27,11 +32,13 @@ import java.util.Objects;
  * @author Zongwei
  */
 @Slf4j
-@Component
 public class PlatformAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private IUserBizc userBizc;
+
+    @Autowired
+    private UserAuthorityService userAuthorityService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -59,9 +66,12 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("用户名不存在或用户名密码不匹配");
         }
 
+        List<UserAuthority> userAuthorities = userAuthorityService.queryUserAuthority(user.getId());
+        ThreadContextHolder.set(USER_AUTHORITY_PREFIX + userName, userAuthorities);
+
         UserDetails userInfo = User.builder().username(userName).password(password)
                 .accountExpired(false).accountLocked(false).disabled(false).credentialsExpired(false)
-                .authorities("TABLE_1", "TABLE_2")
+                .authorities("USER", "TABLE_2")
 //                .roles("USER", "VISITOR")
                 .build();
 

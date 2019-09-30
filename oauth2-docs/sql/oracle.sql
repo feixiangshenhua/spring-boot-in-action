@@ -12,3 +12,11 @@ CREATE TABLE oauth_client_details (
   autoapprove varchar2(256) DEFAULT NULL,
   PRIMARY KEY (client_id)
 )
+
+CREATE TABLE oauth_user_authority (
+  authority_id NUMBER(20, 0) NOT NULL,
+  user_id   varchar2(32) NOT NULL ,
+  authority_type varchar2(32) NOT NULL,
+  authority clob NOT NULL,
+  PRIMARY KEY (authority_id)
+);

@@ -1,6 +1,6 @@
 package com.nari.guangzhou.oauth2.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nari.guangzhou.oauth2.security.PlatformAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,12 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new PlatformAuthenticationProvider();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider);
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Bean
