@@ -1,6 +1,6 @@
 package com.nari.guangzhou.oauth2.security;
 
-import com.nari.guangzhou.oauth2.model.UserAuthority;
+import com.nari.guangzhou.oauth2.entity.UserAuthority;
 import com.nari.guangzhou.oauth2.security.oauth2.ThreadContextHolder;
 import com.nari.guangzhou.oauth2.security.oauth2.UserAuthorityService;
 import com.nariit.pi6000.ua.bizc.IUserBizc;
@@ -8,6 +8,7 @@ import com.nariit.pi6000.ua.exception.IncorrectCredentialsException;
 import com.nariit.pi6000.ua.exception.LockedAccountException;
 import com.nariit.pi6000.ua.exception.UnknownAccountException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,9 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.nari.guangzhou.oauth2.security.oauth2.ThreadContextHolder.USER_AUTHORITY_PREFIX;
 
@@ -67,12 +66,20 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
         }
 
         List<UserAuthority> userAuthorities = userAuthorityService.queryUserAuthority(user.getId());
+        Set<UserGrantedAuthority> grantedAuthorities = new HashSet<>();
+        if (CollectionUtils.isNotEmpty(userAuthorities)) {
+            for (UserAuthority userAuthority : userAuthorities) {
+                for (String authority : userAuthority.getAuthority()) {
+                    UserGrantedAuthority grantedAuthority = new UserGrantedAuthority(authority);
+                    grantedAuthorities.add(grantedAuthority);
+                }
+            }
+        }
         ThreadContextHolder.set(USER_AUTHORITY_PREFIX + userName, userAuthorities);
 
         UserDetails userInfo = User.builder().username(userName).password(password)
                 .accountExpired(false).accountLocked(false).disabled(false).credentialsExpired(false)
-                .authorities("USER", "TABLE_2")
-//                .roles("USER", "VISITOR")
+                .authorities(grantedAuthorities)
                 .build();
 
         Collection<? extends GrantedAuthority> authorities = userInfo.getAuthorities();

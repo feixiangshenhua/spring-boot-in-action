@@ -1,5 +1,7 @@
-package com.nari.guangzhou.oauth2.model;
+package com.nari.guangzhou.oauth2.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.util.Set;
@@ -13,10 +15,11 @@ import java.util.Set;
 @Data
 public class UserAuthority {
 
-    public static final String AUTHORITY_TYPE_MANAGEMENT = "MANAGEMENT";
+    public static final String AUTHORITY_TYPE_ROLE = "ROLE";
     public static final String AUTHORITY_TYPE_API = "API";
     public static final String AUTHORITY_TYPE_TABLE = "TABLE";
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long authorityId;
 
     /**
