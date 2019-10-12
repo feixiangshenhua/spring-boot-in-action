@@ -25,10 +25,6 @@
         <appender-ref ref="EVENT-LOG"/>
     </logger>
 
-    <logger name="com.nari.guangzhou.OAUTH2.logging.LoggingFilter" additivity="false" level="debug">
-        <appender-ref ref="STDOUT"/>
-    </logger>
-
     <logger name="org.springframework" additivity="false" level="info">
     </logger>
 
@@ -45,10 +41,19 @@
     </logger>
 
     <!-- print the start log in nohup.out-->
-    <logger name="com.nari.guangzhou.OAUTH2.OAUTH2ServerApplication" additivity="true" level="INFO">
+    <logger name="com.nari.guangzhou.oauth2.OAuth2ServerApplication" additivity="true" level="INFO">
         <appender-ref ref="STDOUT"/>
     </logger>
     <logger name="org.springframework.boot" additivity="false" level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="com.netflix.config" additivity="false" level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="com.netflix.discovery" additivity="false" level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.xnio" additivity="false" level="INFO">
         <appender-ref ref="STDOUT"/>
     </logger>
     <logger name="io.undertow" additivity="false" level="INFO">

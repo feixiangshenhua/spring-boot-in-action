@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nari-oauth2-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nari-oauth2-server
+    spec:
+      containers:
+      - name: nari-oauth2-server
+        image: imagesregistry-test:5000/nari-oauth2-server:1.0.0
+        volumeMounts: 
+         - name: nari-oauth2-config
+           mountPath: /usr/local/Nari-OAuth2-Server/config/
+         - name: nari-oauth2-log
+           mountPath: /usr/local/Nari-OAuth2-Server/log/
+         - name: serverxml
+           mountPath: /usr/local/Nari-OAuth2-Server/config/application.yml
+           subPath: application.yml
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /oauth2/actuator/health
+            port: 8080
+          initialDelaySeconds: 100
+          timeoutSeconds: 45
+          periodSeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /oauth2/actuator/health
+            port: 8080
+          initialDelaySeconds: 100
+          timeoutSeconds: 45
+          periodSeconds: 60
+      volumes: 
+      - name: nari-oauth2-config
+        nfs:
+          path: /home/omsiii/nari-oauth2/conf/
+          server: 10.100.1.15
+      - name: nari-oauth2-log
+        nfs:
+          path: /home/omsiii/nari-oauth2/logs/
+          server: 10.100.1.15
+      - name: serverxml
+        configMap:
+          name: nari-oauth2-server-appconfigfiles
+          items:
+          - key: application
+            path: application.yml
+

@@ -1,9 +1,9 @@
 application:
   version: 1.0-SNAPSHOT
 server:
-  port: 8093
+  port: 8080
   servlet:
-    context-path: /
+    context-path: /oauth2
   # 以下是undertow内嵌服务器的配置项
   undertow:
     buffer-size: 1024
@@ -31,9 +31,9 @@ management:
 eureka:
   client:
     instanceInfoReplicationIntervalSeconds: 10
-    enabled: false
+    enabled: true
     serviceUrl:
-      defaultZone: http://10.100.1.19:8761/eureka/
+      defaultZone: http://10.100.1.30:8761/eureka/
   instance:
     preferIpAddress: false
 
@@ -46,12 +46,12 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:oracle:thin:@10.100.1.20:1521:dicp
-    username: OAUTH2
-    password: OAUTH2
+    username: metabase
+    password: metabase
     driverClassName: oracle.jdbc.driver.OracleDriver
     hikari:
-      maximum-pool-size: 50
-      minimum-idle: 20
+      maximum-pool-size: 4
+      minimum-idle: 4
   jackson:
     property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
     date-format: yyyy-MM-dd HH:mm:ss
