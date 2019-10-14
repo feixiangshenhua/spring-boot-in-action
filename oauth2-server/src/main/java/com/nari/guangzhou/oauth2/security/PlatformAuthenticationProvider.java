@@ -74,7 +74,13 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
                     grantedAuthorities.add(grantedAuthority);
                 }
             }
+        } else {
+            // 如果用户未配置权限，设置默认权限
+            grantedAuthorities.add(new UserGrantedAuthority("ROLE_USER"));
+            grantedAuthorities.add(new UserGrantedAuthority("API_ALL"));
+            grantedAuthorities.add(new UserGrantedAuthority("TABLE_ALL"));
         }
+
         ThreadContextHolder.set(USER_AUTHORITY_PREFIX + userName, userAuthorities);
 
         UserDetails userInfo = User.builder().username(userName).password(password)

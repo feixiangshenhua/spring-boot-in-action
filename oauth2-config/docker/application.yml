@@ -39,7 +39,7 @@ eureka:
 
 spring:
   application:
-    name: NARI_OAUTH2_SERVER
+    name: NARI-OAUTH2-SERVER
   output:
     ansi:
       enabled: always

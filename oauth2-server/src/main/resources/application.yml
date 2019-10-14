@@ -3,7 +3,7 @@ application:
 server:
   port: 8093
   servlet:
-    context-path: /
+    context-path: /oauth2
   # 以下是undertow内嵌服务器的配置项
   undertow:
     buffer-size: 1024

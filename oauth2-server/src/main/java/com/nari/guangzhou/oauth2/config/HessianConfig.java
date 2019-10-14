@@ -18,6 +18,7 @@ public class HessianConfig {
     @Bean
     public HessianProxyFactoryBean userBizcClient(){
         PlatformHessianProxyFactoryBean factoryBean = new PlatformHessianProxyFactoryBean();
+        // 这个配置项会被PlatformHessianProxyFactoryBean动态替换，这里只是为了初始化成功
         factoryBean.setServiceUrl("http://127.0.0.1");
         factoryBean.setServiceInterface(IUserBizc.class);
         factoryBean.setServiceName("PI6000-UA-WEB");

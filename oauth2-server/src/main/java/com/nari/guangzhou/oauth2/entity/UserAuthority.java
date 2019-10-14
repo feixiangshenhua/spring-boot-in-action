@@ -37,6 +37,7 @@ public class UserAuthority {
 
     /**
      * 具体权限，在表中多个以,号分隔
+     * 配置规则，项目名:API名，如NARI-METABASE:GET-DATASET-BY-LOCATION
      */
     private Set<String> authority;
 

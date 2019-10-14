@@ -6,6 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
@@ -29,12 +30,16 @@ public class OauthClientApi {
     @Autowired
     private JdbcClientDetailsService clientDetailsService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * 创建oauth_client
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/oauth/client")
     public BaseClientDetails createClient(@RequestBody BaseClientDetails clientDetails) {
+        clientDetails.setClientSecret(passwordEncoder.encode(clientDetails.getClientSecret()));
         clientDetailsService.addClientDetails(clientDetails);
         clientDetails.setClientSecret(null);
         return clientDetails;
