@@ -65,23 +65,8 @@ public class PlatformAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("用户名不存在或用户名密码不匹配");
         }
 
-        List<UserAuthority> userAuthorities = userAuthorityService.queryUserAuthority(user.getId());
-        Set<UserGrantedAuthority> grantedAuthorities = new HashSet<>();
-        if (CollectionUtils.isNotEmpty(userAuthorities)) {
-            for (UserAuthority userAuthority : userAuthorities) {
-                for (String authority : userAuthority.getAuthority()) {
-                    UserGrantedAuthority grantedAuthority = new UserGrantedAuthority(authority);
-                    grantedAuthorities.add(grantedAuthority);
-                }
-            }
-        } else {
-            // 如果用户未配置权限，设置默认权限
-            grantedAuthorities.add(new UserGrantedAuthority("ROLE_USER"));
-            grantedAuthorities.add(new UserGrantedAuthority("API_ALL"));
-            grantedAuthorities.add(new UserGrantedAuthority("TABLE_ALL"));
-        }
-
-        ThreadContextHolder.set(USER_AUTHORITY_PREFIX + userName, userAuthorities);
+        Set<UserGrantedAuthority> grantedAuthorities = userAuthorityService.getUserGrantedAuthorities(user.getId());
+        ThreadContextHolder.set(USER_AUTHORITY_PREFIX + userName, grantedAuthorities);
 
         UserDetails userInfo = User.builder().username(userName).password(password)
                 .accountExpired(false).accountLocked(false).disabled(false).credentialsExpired(false)

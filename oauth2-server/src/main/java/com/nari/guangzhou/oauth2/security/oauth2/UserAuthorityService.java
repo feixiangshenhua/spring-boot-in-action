@@ -1,7 +1,9 @@
 package com.nari.guangzhou.oauth2.security.oauth2;
 
 import com.nari.guangzhou.oauth2.entity.UserAuthority;
+import com.nari.guangzhou.oauth2.security.UserGrantedAuthority;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,9 +17,7 @@ import org.springframework.util.StringUtils;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * oauth_user_authority表的业务类
@@ -48,6 +48,26 @@ public class UserAuthorityService {
         Map<String, Object> queryMap = new HashMap<>(1);
         queryMap.put("user_id", userId);
         return this.listFactory.getList(DEFAULT_FIND_STATEMENT, queryMap, this.rowMapper);
+    }
+
+    public Set<UserGrantedAuthority> getUserGrantedAuthorities(String userId) {
+        List<UserAuthority> userAuthorities = this.queryUserAuthority(userId);
+
+        Set<UserGrantedAuthority> grantedAuthorities = new HashSet<>();
+        if (CollectionUtils.isNotEmpty(userAuthorities)) {
+            for (UserAuthority userAuthority : userAuthorities) {
+                for (String authority : userAuthority.getAuthority()) {
+                    UserGrantedAuthority grantedAuthority = new UserGrantedAuthority(authority);
+                    grantedAuthorities.add(grantedAuthority);
+                }
+            }
+        } else {
+            // 如果用户未配置权限，设置默认权限
+            grantedAuthorities.add(new UserGrantedAuthority("ROLE_USER"));
+            grantedAuthorities.add(new UserGrantedAuthority("API_ALL"));
+            grantedAuthorities.add(new UserGrantedAuthority("TABLE_ALL"));
+        }
+        return grantedAuthorities;
     }
 
     public void addUserAuthority(UserAuthority userAuthority) {
