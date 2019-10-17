@@ -51,7 +51,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Autowired
-    private TokenEnhancer jwtTokenEnhancer;
+    private TokenEnhancer platformTokenEnhancer;
 
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
@@ -75,21 +75,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints/*.tokenStore(new RedisTokenStore(redisConnectionFactory))*/
+        endpoints
                 .authenticationManager(authenticationManager)
                 //配置userService 这样每次认证的时候会去检验用户是否锁定，有效等
                 .userDetailsService(userDetailsService)
                 .exceptionTranslator(loggingExceptionTranslator());
 
-        //扩展token返回结果
+        // 扩展token返回结果
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> enhancerList = new ArrayList();
-        enhancerList.add(jwtTokenEnhancer);
-        enhancerList.add(jwtAccessTokenConverter);
+        enhancerList.add(platformTokenEnhancer);
+        // TODO 暂时不用jwt生成Token
+//        enhancerList.add(jwtAccessTokenConverter);
         tokenEnhancerChain.setTokenEnhancers(enhancerList);
         //jwt
         endpoints.tokenEnhancer(tokenEnhancerChain)
-                .accessTokenConverter(jwtAccessTokenConverter)
+                // TODO 暂时不用jwt生成Token
+//                .accessTokenConverter(jwtAccessTokenConverter)
                 // 持久化到Redis
                 .tokenStore(redisTokenStore());
     }

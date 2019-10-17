@@ -9,7 +9,7 @@ spec:
   - port: 8080
     name: nari-oauth2-server
     targetPort: 8080
-    nodePort: 18081
+    nodePort: 18888
     protocol: TCP
   type: NodePort
   selector: 

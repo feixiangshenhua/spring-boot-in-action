@@ -1,6 +1,5 @@
 package com.nari.guangzhou.oauth2.security;
 
-import com.nari.guangzhou.oauth2.entity.UserAuthority;
 import com.nari.guangzhou.oauth2.security.oauth2.ThreadContextHolder;
 import com.nari.guangzhou.oauth2.security.oauth2.UserAuthorityService;
 import com.nariit.pi6000.ua.bizc.IUserBizc;
@@ -8,7 +7,6 @@ import com.nariit.pi6000.ua.exception.IncorrectCredentialsException;
 import com.nariit.pi6000.ua.exception.LockedAccountException;
 import com.nariit.pi6000.ua.exception.UnknownAccountException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 
 import static com.nari.guangzhou.oauth2.security.oauth2.ThreadContextHolder.USER_AUTHORITY_PREFIX;
 

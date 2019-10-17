@@ -1,5 +1,6 @@
 package com.nari.guangzhou.oauth2.token;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.restassured.RestAssured;
 import org.junit.Before;
@@ -36,18 +37,19 @@ public class TestOauthClientApi {
     @Test
     public void testCreateClient() throws Exception {
         BaseClientDetails clientDetails = new BaseClientDetails();
-        clientDetails.setClientId("nari_metabase");
-        clientDetails.setClientSecret("nari_metabase_9527");
+        clientDetails.setClientId("dg_client");
+        clientDetails.setClientSecret("dg_client_9527");
         clientDetails.setAccessTokenValiditySeconds(3600);
         clientDetails.setRefreshTokenValiditySeconds(-1);
         clientDetails.setScope(ImmutableSet.of("read", "write", "all"));
         clientDetails.setAuthorizedGrantTypes(ImmutableSet.of("refresh_token", "password", "authorization_code"));
         clientDetails.setRegisteredRedirectUri(ImmutableSet.of("http://www.baidu.com"));
+        clientDetails.setAdditionalInformation(ImmutableMap.of("location", "dg"));
 
         RestAssured.given().contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzEwMzg2MDEsInVzZXJfbmFtZSI6IuW-kOaYpeWNjiIsImF1dGhvcml0aWVzIjpbIlRBQkxFXzEiLCJUQUJMRV8yIl0sImp0aSI6ImEyM2NlMjVlLTU2MWQtNDk5Yy1iMjFhLTc4MTgxODJiODk0NCIsImNsaWVudF9pZCI6Im1lcnJ5eW91Iiwic2NvcGUiOlsiYWxsIl19.eeSbyLUH3jK-fbuZVk9Pcq0Zkj5_NhdAftS0dEn0Q8I")
+                .header("Authorization", "Bearer 92f929e6-3930-4f86-8108-2fab3cfc4f33")
                 .body(clientDetails).log().all()
-                .post("/oauth/client")
+                .post("/oauth2/oauth/client")
                 .then().log().all().statusCode(HttpStatus.CREATED.value());
     }
 

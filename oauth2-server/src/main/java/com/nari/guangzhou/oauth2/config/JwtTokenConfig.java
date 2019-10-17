@@ -1,7 +1,6 @@
 package com.nari.guangzhou.oauth2.config;
 
-import com.nari.guangzhou.oauth2.security.oauth2.JwtTokenEnhancer;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import com.nari.guangzhou.oauth2.security.oauth2.PlatformTokenEnhancer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -48,9 +47,9 @@ public class JwtTokenConfig {
      * @return
      */
     @Bean
-    @ConditionalOnMissingBean(name = "jwtTokenEnhancer")
-    public TokenEnhancer jwtTokenEnhancer() {
-        return new JwtTokenEnhancer();
+//    @ConditionalOnMissingBean(name = "jwtTokenEnhancer")
+    public TokenEnhancer platformTokenEnhancer() {
+        return new PlatformTokenEnhancer();
     }
 
 }
