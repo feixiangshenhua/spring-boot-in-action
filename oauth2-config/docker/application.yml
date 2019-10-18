@@ -44,14 +44,26 @@ spring:
     ansi:
       enabled: always
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:oracle:thin:@10.100.1.20:1521:dicp
-    username: metabase
-    password: metabase
-    driverClassName: oracle.jdbc.driver.OracleDriver
-    hikari:
-      maximum-pool-size: 4
-      minimum-idle: 4
+    # metabase的数据源配置
+    metabase:
+      type: com.zaxxer.hikari.HikariDataSource
+      jdbc-url: jdbc:oracle:thin:@10.100.1.20:1521:dicp
+      username: metabase
+      password: metabase
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      hikari:
+        maximum-pool-size: 4
+        minimum-idle: 4
+    # pi6000的数据源，用于读取用户信息
+    pi6000:
+      type: com.zaxxer.hikari.HikariDataSource
+      jdbc-url: jdbc:oracle:thin:@10.100.1.20:1521:dicp
+      username: oms_pi6000
+      password: oms_pi6000
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      hikari:
+        maximum-pool-size: 4
+        minimum-idle: 4
   jackson:
     property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
     date-format: yyyy-MM-dd HH:mm:ss
