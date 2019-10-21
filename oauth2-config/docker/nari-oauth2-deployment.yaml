@@ -25,14 +25,14 @@ spec:
         - containerPort: 8080
         livenessProbe:
           httpGet:
-            path: /oauth2/actuator/health
+            path: /nari-oauth2-server/actuator/health
             port: 8080
           initialDelaySeconds: 100
           timeoutSeconds: 45
           periodSeconds: 60
         readinessProbe:
           httpGet:
-            path: /oauth2/actuator/health
+            path: /nari-oauth2-server/actuator/health
             port: 8080
           initialDelaySeconds: 100
           timeoutSeconds: 45
