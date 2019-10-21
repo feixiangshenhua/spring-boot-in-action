@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: nari-oauth2-server
-        image: imagesregistry-test:5000/nari-oauth2-server:1.0.0
+        image: imagesregistry-test:5000/nari-oauth2-server:1.1.0
         volumeMounts: 
          - name: nari-oauth2-config
            mountPath: /usr/local/Nari-OAuth2-Server/config/

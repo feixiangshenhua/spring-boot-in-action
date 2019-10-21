@@ -12,7 +12,7 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' 
     && mkdir -p /usr/local/Nari-OAuth2-Server/config \
     && mkdir -p /usr/local/Nari-OAuth2-Server/log
 
-ENV TARGET_JAR ${TARGET_JAR:-oauth2-server-1.0.0.jar}
+ENV TARGET_JAR ${TARGET_JAR:-oauth2-server-1.1.0.jar}
 ENV JAVA_OPTS="-server -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Xms1024m -Xmx1024m -Dspring.profiles.active=prod"
 ENV SERVER_CONFIG_PATH /usr/local/Nari-OAuth2-Server/config
 ENV SERVER_LOG_PATH /usr/local/Nari-OAuth2-Server/log
