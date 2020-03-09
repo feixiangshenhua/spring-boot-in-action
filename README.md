@@ -11,6 +11,13 @@ POST：basic token
 http://localhost:8093/oauth/token?grant_type=password&username=徐春华&password=0&scope=all
 ```
 
+### 客户端模式
+
+```
+POST: basic token
+http://localhost:8093/oauth/token?grant_type=client_credentials&scope=all
+```
+
 ### 授权码模式
 
 ```
