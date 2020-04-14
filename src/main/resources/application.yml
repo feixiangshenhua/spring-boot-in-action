@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+# actuator相关配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: FILE-SERVER
+  data:
+    mongodb:
+      host: 192.168.3.168
+      port: 27017
+      username: zongwei
+      # 加单引号解决prohibited character at position 0的问题
+      password: '123456'
+      # 指定操作的数据库
+      database: FILE_SERVER
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+08:00
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
