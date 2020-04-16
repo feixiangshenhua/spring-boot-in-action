@@ -1,7 +1,7 @@
 server:
   port: 8080
 
-# actuatorÏà¹ØÅäÖÃ
+# actuatorç›¸å…³é…ç½®
 management:
   endpoints:
     web:
@@ -24,9 +24,9 @@ spring:
       host: 192.168.3.168
       port: 27017
       username: zongwei
-      # ¼Óµ¥ÒıºÅ½â¾öprohibited character at position 0µÄÎÊÌâ
+      # åŠ å•å¼•å·è§£å†³prohibited character at position 0çš„é—®é¢˜
       password: '123456'
-      # Ö¸¶¨²Ù×÷µÄÊı¾İ¿â
+      # æŒ‡å®šæ“ä½œçš„æ•°æ®åº“
       database: FILE_SERVER
   jackson:
     property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
@@ -37,3 +37,16 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  # consulé…ç½®
+  cloud:
+    consul:
+      host: 192.168.3.168
+      port: 8501
+      discovery:
+        serviceName: FILE-SERVER
+        prefer-ip-address: true
+        register-health-check: true
+        # åªèƒ½ä½¿ç”¨health-check-urlå¯ä»¥è§£å†³consul Service Checks failedçš„é—®é¢˜
+#        health-check-path: /actuator/health
+        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health
+        tags: åŸºç¡€æ–‡ä»¶æœåŠ¡
