@@ -47,7 +47,8 @@ spring:
           - Path=/ws-im/**
         filters:
           - StripPrefix=1
-        uri: lb:ws://WS-IM-SERVER
+#        uri: lb:ws://WS-IM-SERVER
+        uri: lb://WS-IM-SERVER
 
     consul:
       host: 192.168.3.168
