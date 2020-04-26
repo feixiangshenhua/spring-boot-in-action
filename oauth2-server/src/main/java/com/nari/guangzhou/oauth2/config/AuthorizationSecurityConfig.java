@@ -1,6 +1,8 @@
 package com.nari.guangzhou.oauth2.config;
 
+import com.nari.dev.platform.logging.LoggingFilter;
 import com.nari.guangzhou.oauth2.security.PlatformAuthenticationProvider;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +48,13 @@ public class AuthorizationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .csrf().disable();
+    }
+
+    @Bean
+    public FilterRegistrationBean filterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean(new LoggingFilter());
+        registration.addUrlPatterns("/oauth/*", "/user/*");
+        return registration;
     }
 
 }

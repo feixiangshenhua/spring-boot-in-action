@@ -105,6 +105,11 @@
             <artifactId>pi6000-ua-base</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.nari.development.kit</groupId>
+            <artifactId>development-kit-logging</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

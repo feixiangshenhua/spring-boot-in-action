@@ -31,6 +31,7 @@
         <springfox.version>2.9.2</springfox.version>
         <guava.version>26.0-jre</guava.version>
         <pi6000-ua-base.version>1.2.0-SNAPSHOT</pi6000-ua-base.version>
+        <nari-development-kit.version>1.0.0-SNAPSHOT</nari-development-kit.version>
     </properties>
 
     <dependencyManagement>
@@ -120,6 +121,13 @@
                 </exclusions>
             </dependency>
             <!-- swagger end -->
+
+            <!-- 开发套件依赖 -->
+            <dependency>
+                <groupId>com.nari.development.kit</groupId>
+                <artifactId>development-kit-logging</artifactId>
+                <version>${nari-development-kit.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
