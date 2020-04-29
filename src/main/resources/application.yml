@@ -54,6 +54,7 @@ spring:
       host: 192.168.3.168
       port: 8501
       discovery:
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
         serviceName: API-GATEWAY
         prefer-ip-address: true
         register-health-check: true
