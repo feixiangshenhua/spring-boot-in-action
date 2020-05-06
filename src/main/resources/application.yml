@@ -50,4 +50,5 @@ spring:
         # 只能使用health-check-url可以解决consul Service Checks failed的问题
 #        health-check-path: /actuator/health
         health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health
+        health-check-critical-timeout: 30s
         tags: 基础文件服务
