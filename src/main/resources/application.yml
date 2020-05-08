@@ -36,8 +36,8 @@ spring:
       notify:
         discord:
           ignore-changes:
-            OFFLINE:UP
-            UNKNOWN:UP
+            - OFFLINE:UP
+            - UNKNOWN:UP
 # actuator相关配置
 management:
   endpoints:
