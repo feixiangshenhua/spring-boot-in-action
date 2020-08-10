@@ -14,7 +14,6 @@ import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -33,7 +32,7 @@ public class FileEndpoint {
     private FileService fileService;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Mono<FileInfo> uploadFile(@RequestPart("file") FilePart filePart) throws IOException {
+    public Mono<FileInfo> uploadFile(@RequestPart("file") FilePart filePart) {
         log.info("upload file:{}", filePart.filename());
         return fileService.uploadFile(filePart);
     }
@@ -45,13 +44,13 @@ public class FileEndpoint {
         return fileInfoMono
                 .switchIfEmpty(fallback)
                 .flatMap(fileInfo -> {
-                    var fileName = new String(fileInfo.getFileName().getBytes(Charset.defaultCharset()), StandardCharsets.ISO_8859_1);
+                    var fileName = new String(fileInfo.getDfsFileName().getBytes(Charset.defaultCharset()), StandardCharsets.ISO_8859_1);
 
                     ZeroCopyHttpOutputMessage zeroCopyResponse = (ZeroCopyHttpOutputMessage) response;
                     response.getHeaders().set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
                     response.getHeaders().setContentType(MediaType.IMAGE_PNG);
 
-                    var file = new File(fileInfo.getAbsolutePath());
+                    var file = new File(fileInfo.getDfsBucket());
                     return zeroCopyResponse.writeWith(file, 0, file.length());
                 });
     }

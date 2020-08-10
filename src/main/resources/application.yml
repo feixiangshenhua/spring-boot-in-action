@@ -1,5 +1,10 @@
 server:
   port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 # actuator相关配置
 management:
@@ -32,11 +37,7 @@ spring:
     property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+08:00
-  http:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
+
   # consul配置
   cloud:
     consul:
@@ -47,8 +48,8 @@ spring:
         serviceName: FILE-SERVER
         prefer-ip-address: true
         register-health-check: true
-        # 只能使用health-check-url可以解决consul Service Checks failed的问题
-#        health-check-path: /actuator/health
+        # 只能使用health-check-url，可以解决consul Service Checks failed的问题
+        #        health-check-path: /actuator/health
         health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health
         health-check-critical-timeout: 30s
         tags: 基础文件服务

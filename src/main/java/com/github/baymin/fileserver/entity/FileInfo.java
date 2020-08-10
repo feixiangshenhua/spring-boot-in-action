@@ -1,7 +1,5 @@
 package com.github.baymin.fileserver.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,18 +23,13 @@ public class FileInfo {
     @Field(name = "origin_file_name")
     private String originFileName;
 
-    @Field(name = "file_name")
-    private String fileName;
+    @Field(name = "dfs_file_name")
+    private String dfsFileName;
 
-    @JsonIgnore
-    @Field(name = "absolute_path")
-    private String absolutePath;
+    @Field(name = "dfs_bucket")
+    private String dfsBucket;
 
     @Field(name = "created_at")
     private Date createdAt;
-
-    @JsonIgnore
-    @Field(name = "md5")
-    private String md5;
 
 }

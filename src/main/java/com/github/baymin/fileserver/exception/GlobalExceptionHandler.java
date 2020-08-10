@@ -25,4 +25,11 @@ public class GlobalExceptionHandler {
         return new ErrorInfo("not_found", e.getMessage());
     }
 
+    @ExceptionHandler(DfsServerException.class)
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorInfo handleDfsServerException(DfsServerException e) {
+        log.error("DfsServerException occurred", e);
+        return new ErrorInfo("server_error", e.getMessage());
+    }
+
 }
