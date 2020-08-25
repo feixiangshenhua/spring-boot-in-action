@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  jetty:
+    accesslog:
+      enabled: true
+      format: ncsa
+      append: true
+      filename: logs/jetty-yyyy_mm_dd.request.log
+    connection-idle-timeout: 60000
+    threads:
+      selectors: -1
+      acceptors: -1
+      min: 20
+      max: 200
+      idle-timeout: 60000
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+08:00
+  application:
+    name: dicp_ws_server
+  redis:
+    host: 10.100.1.19
+    port: 6379
