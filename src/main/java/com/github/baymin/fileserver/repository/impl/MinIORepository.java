@@ -12,6 +12,8 @@ import java.io.InputStream;
 @Repository
 public class MinIORepository implements DfsRepository {
 
+    private static final String TEMP_FILE_PATH = "/tmp/file/";
+
     @Autowired
     private MinioClient minioClient;
 
@@ -55,6 +57,21 @@ public class MinIORepository implements DfsRepository {
                     .build());
         } catch (Exception e) {
             throw new DfsServerException("删除文件失败", e);
+        }
+    }
+
+    @Override
+    public String downloadObject(String bucket, String fileName) {
+        try {
+            String localFilePath = TEMP_FILE_PATH + fileName;
+            minioClient.downloadObject(DownloadObjectArgs.builder()
+                    .bucket(bucket)
+                    .object(fileName)
+                    .filename(TEMP_FILE_PATH + fileName)
+                    .build());
+            return localFilePath;
+        } catch (Exception e) {
+            throw new DfsServerException("下载文件失败", e);
         }
     }
 

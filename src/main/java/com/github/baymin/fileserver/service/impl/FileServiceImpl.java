@@ -63,4 +63,9 @@ public class FileServiceImpl implements FileService {
                     return fileInfoRepository.deleteById(fileId);
                 }).then();
     }
+
+    @Override
+    public String downloadFile(String dfsBucket, String dfsFileName) {
+        return dfsRepository.downloadObject(dfsBucket, dfsFileName);
+    }
 }

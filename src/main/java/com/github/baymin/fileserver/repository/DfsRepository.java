@@ -28,7 +28,13 @@ public interface DfsRepository {
 
     /**
      * 删除文件
-     * @param fileName  dfs下的文件名
+     *
+     * @param fileName dfs下的文件名
      */
     void deleteObject(String fileName);
+
+    /**
+     * 下载文件，返回绝对路径
+     */
+    String downloadObject(String bucket, String fileName);
 }

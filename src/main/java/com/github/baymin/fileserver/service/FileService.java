@@ -17,4 +17,6 @@ public interface FileService {
     Mono<FileInfo> uploadFile(FilePart filePart);
 
     Mono<Void> deleteById(String fileId);
+
+    String downloadFile(String dfsBucket, String dfsFileName);
 }
