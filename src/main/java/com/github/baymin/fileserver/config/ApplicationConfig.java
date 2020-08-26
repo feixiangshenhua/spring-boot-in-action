@@ -12,7 +12,8 @@ public class ApplicationConfig {
     @Bean
     public MinioClient minioClient() {
         return MinioClient.builder()
-                .endpoint("192.168.111.128", 9004, false)
+//                .endpoint("192.168.111.128", 9004, false)
+                .endpoint("192.168.3.168", 9004, false)
                 .credentials("minio", "minio123")
                 .build();
     }

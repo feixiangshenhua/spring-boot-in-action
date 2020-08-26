@@ -12,7 +12,7 @@ import java.io.InputStream;
 @Repository
 public class MinIORepository implements DfsRepository {
 
-    private static final String TEMP_FILE_PATH = "/tmp/file/";
+    private static final String TEMP_FILE_PATH = "D:/tmp/";
 
     @Autowired
     private MinioClient minioClient;

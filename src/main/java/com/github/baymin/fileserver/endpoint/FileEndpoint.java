@@ -44,11 +44,11 @@ public class FileEndpoint {
         return fileInfoMono
                 .switchIfEmpty(fallback)
                 .flatMap(fileInfo -> {
-                    var fileName = new String(fileInfo.getDfsFileName().getBytes(Charset.defaultCharset()), StandardCharsets.ISO_8859_1);
+                    var fileName = new String(fileInfo.getOriginFileName().getBytes(Charset.defaultCharset()), StandardCharsets.ISO_8859_1);
                     var tmpFilePath = fileService.downloadFile(fileInfo.getDfsBucket(), fileInfo.getDfsFileName());
                     ZeroCopyHttpOutputMessage zeroCopyResponse = (ZeroCopyHttpOutputMessage) response;
                     response.getHeaders().set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
-                    response.getHeaders().setContentType(MediaType.IMAGE_PNG);
+                    response.getHeaders().setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
                     var file = new File(tmpFilePath);
                     return zeroCopyResponse.writeWith(file, 0, file.length());
