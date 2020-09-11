@@ -22,7 +22,7 @@ import static com.dicp.sse.config.ApplicationConstant.PUB_SUB_SSE_CHANNEL;
  */
 @Slf4j
 @RestController
-@RequestMapping(path = "/api/v1/notify/")
+@RequestMapping(path = "/api/v1/notify")
 public class NotifyEndpoint {
 
     @Autowired

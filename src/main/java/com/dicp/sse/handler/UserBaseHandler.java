@@ -29,12 +29,13 @@ public class UserBaseHandler {
         userBaseInfo.setUserId(userId);
         String updateSql = "insert into T_USER_BASE_INFO values(:userId, :bizObjId, :userName, :location, :unitName)";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("userId", userBaseInfo.getUserId());
+        paramMap.put("userId", userId);
         paramMap.put("bizObjId", userBaseInfo.getBizObjId());
         paramMap.put("userName", userBaseInfo.getUserName());
         paramMap.put("location", userBaseInfo.getLocation());
         paramMap.put("unitName", userBaseInfo.getUnitName());
         memNamedJdbcTemplate.update(updateSql, paramMap);
+        log.debug("执行SQL：{}", updateSql);
     }
 
     /**
@@ -61,7 +62,7 @@ public class UserBaseHandler {
             queryBuilder.append(" and UNIT_NAME = :unitName");
             queryMap.put("unitName", notifyInfo.getUnitName());
         }
-        log.debug("查询SQL：{}", queryBuilder.toString());
+        log.debug("执行SQL：{}", queryBuilder.toString());
         return memNamedJdbcTemplate.queryForList(queryBuilder.toString(), queryMap, String.class);
     }
 
@@ -75,5 +76,6 @@ public class UserBaseHandler {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
         memNamedJdbcTemplate.update(updateSql, paramMap);
+        log.debug("执行SQL：{}", updateSql);
     }
 }

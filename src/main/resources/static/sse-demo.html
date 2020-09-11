@@ -67,7 +67,7 @@
     function closeSse() {
         source.close();
         const httpRequest = new XMLHttpRequest();
-        httpRequest.open('GET', 'http://localhost:8068/dicp-sse/api/v1/channel/' + userId + '/close', true);
+        httpRequest.open('DELETE', 'http://localhost:8068/dicp-sse/api/v1/channel/' + userId + '/close', true);
         httpRequest.send();
         console.log("close");
     }

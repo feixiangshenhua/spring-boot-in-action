@@ -1,8 +1,8 @@
 package com.dicp.sse.endpoint;
 
 import com.dicp.sse.handler.SseEmitterHandler;
-import com.dicp.sse.payload.UserBaseInfo;
 import com.dicp.sse.handler.UserBaseHandler;
+import com.dicp.sse.payload.UserBaseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author Zongwei
  */
 @RestController
-@RequestMapping(path = "/api/v1/channel/")
+@RequestMapping(path = "/api/v1/channel")
 public class SseEmitterEndpoint {
 
     @Autowired
@@ -41,9 +41,10 @@ public class SseEmitterEndpoint {
      *
      * @param userId 用户ID
      */
-    @GetMapping("/{userId}/close")
-    public void close(@PathVariable String userId) {
+    @DeleteMapping("/{userId}/close")
+    public ResponseEntity<HttpStatus> close(@PathVariable String userId) {
         sseEmitterHandler.close(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**

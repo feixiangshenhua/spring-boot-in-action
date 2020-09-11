@@ -156,7 +156,7 @@ public class SseEmitterHandler implements ApplicationListener<ApplicationReadyEv
     /**
      * 获取当前连接数量
      */
-    public static int getUserCount() {
+    public int getUserCount() {
         return SSE_CONN_COUNT.get();
     }
 
