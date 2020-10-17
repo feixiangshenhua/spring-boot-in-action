@@ -21,6 +21,7 @@
         <spring-boot-admin.version>2.2.1</spring-boot-admin.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <minio.version>7.1.0</minio.version>
+        <groovy.version>3.0.2</groovy.version>
     </properties>
 
     <dependencyManagement>
