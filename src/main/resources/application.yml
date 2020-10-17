@@ -21,7 +21,7 @@ server:
       idle-timeout: 60000
   shutdown: graceful
 
-# actuatorÏà¹ØÅäÖÃ
+# actuatorç›¸å…³é…ç½®
 management:
   endpoints:
     web:
@@ -45,10 +45,10 @@ spring:
   application:
     name: DICP-SSE-SERVER
   datasource:
-    # ÄÚ´æÊı¾İ¿âh2µÄÊı¾İÔ´ÅäÖÃ
+    # å†…å­˜æ•°æ®åº“h2çš„æ•°æ®æºé…ç½®
     memh2:
       type: com.zaxxer.hikari.HikariDataSource
-      # ÄÚ´æÊı¾İ¿âµÄÊı¾İ´æÔÚÄÚ´æÖĞ£¬µ±³ÌĞòÍ£Ö¹Ê±£¬²»»á±»±£´æ»á¶ªÊ§
+      # å†…å­˜æ•°æ®åº“çš„æ•°æ®å­˜åœ¨å†…å­˜ä¸­ï¼Œå½“ç¨‹åºåœæ­¢æ—¶ï¼Œä¸ä¼šè¢«ä¿å­˜ä¼šä¸¢å¤±
       url: jdbc:h2:mem:dicp-sse;DB_CLOSE_DELAY=1000
       username: sa
       password: 123456
