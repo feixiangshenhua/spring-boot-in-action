@@ -21,6 +21,7 @@
                 <module>spring-boot-admin-server</module>
                 <module>spring-boot-sse-server</module>
                 <module>spring-boot-websocket-server</module>
+                <module>spring-boot-api-gateway</module>
             </modules>
         </profile>
     </profiles>
