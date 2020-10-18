@@ -1,7 +1,7 @@
 server:
   port: 8093
   servlet:
-    context-path: /nari-oauth2-server
+    context-path: /oauth2-server
   # 以下是undertow内嵌服务器的配置项
   undertow:
     buffer-size: 1024
@@ -28,7 +28,7 @@ management:
 
 spring:
   application:
-    name: NARI-OAUTH2-SERVER
+    name: OAUTH2-SERVER
   output:
     ansi:
       enabled: always

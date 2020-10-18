@@ -23,5 +23,5 @@ ${AnsiColor.BRIGHT_YELLOW}
 ////////////////////////////////////////////////////////////////////
                                                                                                              
 ::: Spring-Boot ${spring-boot.version}
-::: NARI-OAUTH2 ${application.version}
+::: OAUTH2 ${application.version}
 ${AnsiColor.DEFAULT}

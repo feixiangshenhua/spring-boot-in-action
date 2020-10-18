@@ -3,7 +3,7 @@ application:
 server:
   port: 8093
   servlet:
-    context-path: /nari-oauth2-server
+    context-path: /oauth2-server
 
 # 配置服务发现
 eureka:
@@ -17,34 +17,20 @@ eureka:
 
 spring:
   datasource:
-    # metabase的数据源配置
-    metabase:
+    # oauth2的数据源配置
+    oauth2:
       type: com.zaxxer.hikari.HikariDataSource
-#      jdbc-url: jdbc:oracle:thin:@10.100.1.20:1521:dicp
-#      username: metabase
-#      password: metabase
-      jdbc-url: jdbc:oracle:thin:@172.16.221.214:1521:GDOMSDB
-      username: DICP
-      password: DICP
-      driverClassName: oracle.jdbc.driver.OracleDriver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/boot_in_action?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
       hikari:
         maximum-pool-size: 10
         minimum-idle: 10
-    # pi6000的数据源，用于读取用户信息
-    pi6000:
-      type: com.zaxxer.hikari.HikariDataSource
-      jdbc-url: jdbc:oracle:thin:@172.16.221.214:1521:GDOMSDB
-      username: OMS_PI6000
-      password: OMS_PI6000
-      driverClassName: oracle.jdbc.driver.OracleDriver
-      hikari:
-        maximum-pool-size: 8
-        minimum-idle: 2
   redis:
-    host: 192.168.3.168
+    host: 127.0.0.1
     port: 6379
     database: 2
-#    password:
     lettuce:
       pool:
         max-active: 8
@@ -55,7 +41,7 @@ spring:
   security:
     user:
       name: admin
-      password: oms_admin
+      password: admin
 
 # logback配置文件路径
 logging:

@@ -11,7 +11,7 @@
 
 NAME=jxd-server
 CMD=$1
-SERVER_ROOT_PATH=/home/dev-platform/nari-oauth2
+SERVER_ROOT_PATH=/home/dev-platform/oauth2
 
 APP_PATH=$SERVER_ROOT_PATH/webapp/$NAME.jar
 SERVER_CONFIG_PATH=$SERVER_ROOT_PATH/config

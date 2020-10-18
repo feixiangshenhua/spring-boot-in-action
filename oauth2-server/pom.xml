@@ -57,24 +57,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang</artifactId>
-                    <groupId>commons-lang</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <dependency>
@@ -88,6 +74,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
@@ -98,16 +96,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nariit.pi6000</groupId>
-            <artifactId>pi6000-ua-base</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nari.development.kit</groupId>
-            <artifactId>development-kit-logging</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -138,7 +126,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.nari.guangzhou.oauth2.OAuth2ServerApplication</mainClass>
+                    <mainClass>com.github.baymin.oauth2.OAuth2ServerApplication</mainClass>
                     <layout>ZIP</layout>
                     <excludes>
                         <exclude>

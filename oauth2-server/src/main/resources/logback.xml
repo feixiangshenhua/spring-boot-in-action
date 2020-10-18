@@ -10,7 +10,7 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="com.nari" additivity="false" level="DEBUG">
+    <logger name="com.github.baymin.oauth2" additivity="false" level="DEBUG">
         <appender-ref ref="STDOUT"/>
     </logger>
 
@@ -30,7 +30,7 @@
     </logger>
 
     <!-- print the start log in nohup.out-->
-    <logger name="com.nari.guangzhou.oauth2.OAuth2ServerApplication" additivity="false" level="INFO">
+    <logger name="com.github.baymin.oauth2.OAuth2ServerApplication" additivity="false" level="INFO">
         <appender-ref ref="STDOUT"/>
     </logger>
     <logger name="org.springframework.boot" additivity="false" level="INFO">

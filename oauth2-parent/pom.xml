@@ -17,21 +17,20 @@
     <packaging>pom</packaging>
 
     <name>oauth2-parent</name>
-    <description>Spring Boot project for NARI-OAuth2-Server</description>
+    <description>Spring Boot project for OAuth2-Server</description>
 
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mybatis-plus-starter.version>3.1.2</mybatis-plus-starter.version>
-        <ojdbc.version>11.2.0.3</ojdbc.version>
+        <mysql.version>8.0.12</mysql.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-lang.version>2.6</commons-lang.version>
         <springfox.version>2.9.2</springfox.version>
         <guava.version>26.0-jre</guava.version>
-        <pi6000-ua-base.version>1.2.0-SNAPSHOT</pi6000-ua-base.version>
-        <nari-development-kit.version>1.0.0-SNAPSHOT</nari-development-kit.version>
+        <development-kit.version>1.0.0-SNAPSHOT</development-kit.version>
     </properties>
 
     <dependencyManagement>
@@ -52,11 +51,11 @@
                 <version>${mybatis-plus-starter.version}</version>
             </dependency>
 
-            <!-- ojdbc依赖 -->
+            <!-- mysql driver -->
             <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
-                <version>${ojdbc.version}</version>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
 
             <!-- apache common dependencies -->
@@ -82,13 +81,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-
-            <!-- pi6000依赖 -->
-            <dependency>
-                <groupId>com.nariit.pi6000</groupId>
-                <artifactId>pi6000-ua-base</artifactId>
-                <version>${pi6000-ua-base.version}</version>
             </dependency>
 
             <!-- swagger start -->
@@ -126,33 +118,9 @@
             <dependency>
                 <groupId>com.nari.development.kit</groupId>
                 <artifactId>development-kit-logging</artifactId>
-                <version>${nari-development-kit.version}</version>
+                <version>${development-kit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <repositories>
-        <repository>
-            <id>nari-public</id>
-            <name>nari-nexus</name>
-            <url>http://10.100.1.19:8001/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
-            <layout>default</layout>
-            <url>http://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>

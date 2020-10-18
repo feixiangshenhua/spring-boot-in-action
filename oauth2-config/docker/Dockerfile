@@ -1,27 +1,27 @@
 FROM imagesregistry-test:5000/centos7-jdk1.8:latest
 
-MAINTAINER nariis-dicp
+MAINTAINER zongwei.bai@foxmail.com
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-VOLUME ["/usr/local/Nari-OAuth2-Server/config", "/usr/local/modules/Nari-OAuth2-Server/log"]
+VOLUME ["/usr/local/OAuth2-Server/config", "/usr/local/modules/OAuth2-Server/log"]
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone \
-    && mkdir -p /usr/local/Nari-OAuth2-Server/config \
-    && mkdir -p /usr/local/Nari-OAuth2-Server/log
+    && mkdir -p /usr/local/OAuth2-Server/config \
+    && mkdir -p /usr/local/OAuth2-Server/log
 
 ENV TARGET_JAR ${TARGET_JAR:-oauth2-server-1.1.0.jar}
 ENV JAVA_OPTS="-server -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Xms1024m -Xmx1024m -Dspring.profiles.active=prod"
-ENV SERVER_CONFIG_PATH /usr/local/Nari-OAuth2-Server/config
-ENV SERVER_LOG_PATH /usr/local/Nari-OAuth2-Server/log
+ENV SERVER_CONFIG_PATH /usr/local/OAuth2-Server/config
+ENV SERVER_LOG_PATH /usr/local/OAuth2-Server/log
 
-COPY ${TARGET_JAR} /usr/local/Nari-OAuth2-Server/${TARGET_JAR}
-COPY application.yml /usr/local/Nari-OAuth2-Server/config/
-COPY logback.xml /usr/local/Nari-OAuth2-Server/config/
+COPY ${TARGET_JAR} /usr/local/OAuth2-Server/${TARGET_JAR}
+COPY application.yml /usr/local/OAuth2-Server/config/
+COPY logback.xml /usr/local/OAuth2-Server/config/
 
-WORKDIR /usr/local/Nari-OAuth2-Server
+WORKDIR /usr/local/OAuth2-Server
 
 EXPOSE 8080
 
