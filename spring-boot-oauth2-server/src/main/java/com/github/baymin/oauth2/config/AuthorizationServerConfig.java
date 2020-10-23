@@ -1,6 +1,9 @@
 package com.github.baymin.oauth2.config;
 
 import com.github.baymin.oauth2.security.core.PlatformUserDetailsService;
+import com.github.baymin.oauth2.security.oauth2.HttpRequestInterceptor;
+import com.github.baymin.oauth2.security.oauth2.OauthClientAclService;
+import com.github.baymin.oauth2.security.oauth2.OauthRequestInterceptor;
 import com.github.baymin.oauth2.security.oauth2.UserAuthorityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +82,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 //配置userService 这样每次认证的时候会去检验用户是否锁定，有效等
                 .userDetailsService(userDetailsService)
+                // 对client进行安全性校验
+                .addInterceptor(new HttpRequestInterceptor())
+                .addInterceptor(oauthRequestInterceptor())
                 .exceptionTranslator(loggingExceptionTranslator());
 
         // 扩展token返回结果
@@ -121,6 +127,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public UserAuthorityService userAuthorityService() {
         return new UserAuthorityService(oauth2DataSource);
+    }
+
+    @Bean
+    public OauthClientAclService oauthClientAclService() {
+        return new OauthClientAclService(oauth2DataSource);
+    }
+
+    @Bean
+    public OauthRequestInterceptor oauthRequestInterceptor() {
+        return new OauthRequestInterceptor();
     }
 
     /**
