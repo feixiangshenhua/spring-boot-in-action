@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: 192.168.3.168
+      host: 192.168.111.128
       port: 27017
       username: root
       password: root
@@ -11,5 +11,6 @@ spring:
   # consul配置
   cloud:
     consul:
+      enabled: false
       discovery:
         enabled: false
