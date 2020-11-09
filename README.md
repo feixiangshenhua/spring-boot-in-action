@@ -1,12 +1,31 @@
-# webflux-file-server
-File server created based on springboot / spring webflux / MongoDB
-# spring-boot-admin-server
-Admin UI for Spring boot Applications.
-# api-gateway
-API gateway created based on spring-cloud-gateway.
-# OAuth2-Server
+# Spring-Boot-In-Action
 
-> SpringBoot OAuth2鉴权和认证服务
+A collection of samples of SpringBoot-based modules that can be run independently.    
+
+## Modules
+
+[spring-boot-webflux-file-server](#spring-boot-webflux-file-server)
+
+[spring-boot-admin-server](#spring-boot-admin-server)
+
+[spring-boot-api-gateway](#spring-boot-api-gateway)
+
+[spring-boot-oauth2-Server](#spring-boot-oauth2-Server)
+
+# spring-boot-webflux-file-server
+
+> File server created based on springboot / spring webflux / MongoDB
+
+# spring-boot-admin-server
+
+> Admin UI for Spring boot Applications.
+
+# spring-boot-api-gateway
+> API gateway DEMO Project created based on spring-cloud-gateway.
+
+# spring-boot-oauth2-Server
+
+> SpringBoot OAuth2 Server based on spring-cloud-oauth2 and MySQL.
 
 ## 授权模式
 
@@ -65,7 +84,7 @@ GET：bearer token
 http://localhost:8093/user/profile
 ```
 
-#### Client管理
+### Client管理
 
 ```
 bearer token
