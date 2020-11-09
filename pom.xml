@@ -6,9 +6,6 @@
     <groupId>com.github.baymin</groupId>
     <artifactId>spring-boot-in-action</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <modules>
-        <module>spring-boot-oauth2-server</module>
-    </modules>
     <packaging>pom</packaging>
     <name>spring-boot-in-action</name>
 
@@ -25,6 +22,8 @@
                 <module>spring-boot-sse-server</module>
                 <module>spring-boot-websocket-server</module>
                 <module>spring-boot-api-gateway</module>
+                <module>spring-boot-oauth2-server</module>
+                <module>spring-boot-discovery-server</module>
             </modules>
         </profile>
     </profiles>
