@@ -24,6 +24,7 @@
                 <module>spring-boot-api-gateway</module>
                 <module>spring-boot-oauth2-server</module>
                 <module>spring-boot-discovery-server</module>
+                <module>spring-boot-batch-server</module>
             </modules>
         </profile>
     </profiles>
